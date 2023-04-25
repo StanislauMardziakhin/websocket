@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PublishMessageEvent;
 use App\Http\Requests\Messenger\PublishRequest;
 use App\Http\Resources\Messenger\MessageResource;
 use App\Models\Messenger;
@@ -19,6 +20,8 @@ class MessageController extends Controller
     public function publish(PublishRequest $request){
         $data = $request->validated();
         $message = Messenger::create($data);
+        event(new PublishMessageEvent($message));
         return MessageResource::make($message)->resolve();
     }
+
 }

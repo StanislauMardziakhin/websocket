@@ -38,6 +38,13 @@ export default {
         }
     },
 
+    created() {
+        window.Echo.channel('public_messenger')
+        .listen('.public_messenger', res => {
+            this.messages.unshift(res.message)
+        })
+    },
+
     methods: {
         publish() {
             axios.post('/messages', {body: this.body})
