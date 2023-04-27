@@ -33,7 +33,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/messages', [\App\Http\Controllers\MessageController::class, 'index']);
     Route::post('/messages', [\App\Http\Controllers\MessageController::class, 'publish']);
-
+    Route::get('/users/{user}', [\App\Http\Controllers\UserController::class, 'show']);
+    Route::post('/users/{user}', [\App\Http\Controllers\UserController::class, 'sendReaction']);
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
