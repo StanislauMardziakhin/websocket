@@ -27,11 +27,18 @@ export default {
         }
     },
 
+    created() {
+        window.Echo.private(`send_reaction_${this.$page.props.auth.user.name}`)
+            .listen('.send_reaction', res => {
+                this.reaction_str = res.reaction_str
+            })
+    },
+
     methods: {
         sendReaction() {
             axios.post(`/users/${this.user.id}`, {from_user: this.$page.props.auth.user.name})
                 .then(res => {
-                this.reaction_str = res.data.reaction_str
+                    this.reaction_str = res.data.reaction_str
                 })
         }
     }
